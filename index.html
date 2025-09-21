@@ -1,0 +1,900 @@
+<html lang="en">
+
+<head>
+  <title id="title">Deluge - Unknown Location</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="./css/stylecurrentconditions.css" />
+  <script type="text/javascript" src="./js/config.js"></script>
+  <script type="text/javascript" src="./js/scriptcc.js"></script>
+  <script type="text/javascript" src="./js/notification.js"></script>
+  <script type="text/javascript" src="./js/lightning.js"></script>
+  <script type="text/javascript" src="./js/lang.es.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <meta name="authors" content="Jesse Hasty">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-title" content="Deluge">
+  <meta name='apple-mobile-web-app-capable' content='yes'>
+  <meta name='apple-touch-fullscreen' content='yes'>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+</head>
+<body>
+  <div class="LoadingScreen" id="LoadingScreen">
+        <h1 class="loadingmessage">Loading..</h1>
+  </div>
+  <div class="fullpage" id="weatherpage">
+    <!-- Container -->
+    <div class="container">
+      <div class="currentconditions" id="WeatherContianer2">
+        <div class="darkmode" id="lightmodeenabled">
+          <div class="circlething" id="togglecircle" onclick="darkmode()">OFF</div>
+        </div>
+        <div class="weatherinfo">
+          <div id="WeatherContianer">
+            <!-- The Time of the observation -->
+            <h3 class="time" id="time">Dec 31 1969 11:59 PM</h3>
+            <button onclick="updateveryminute()" class="linkbutton" id="linkd">Real-Time
+              Updates</button>
+            <noscript>You need to enable JavaScript for this web page to work.</noscript>
+            <!-- Current Conditions Section -->
+            <div class="search-container">
+                          <h1>This Project has a new home. Visit the new <a href="https://jessewx2011.github.io/weatherDashboard-Revised/">Weather Dashboard</a>!</h1>
+              <input list="cities" class="inputcontainer" placeholder="Press the Search button or press enter"
+                id="searchInput">
+              <datalist id="cities"></datalist>
+              <button id="searchButton" class="searchb">Search</button>
+            </div>
+            <button class="linkbutton browser-location-btn" onclick="browserlocation()" id="browserlocation">Use My
+              Browser Location </button>
+            <h1 class="city" id="cityname">The Location your searched for is invalid.</h1>
+          </div>
+          <h1 class="temperature" id="temp">32°F</h1>
+            <div id="icon">
+              <img src="loading.svg" alt="loading icon">
+            </div>
+            <h3 class="weathercond" style="color: black;" id="weather">Sunny</h3>
+            <button class="linkbutton help-btn" onclick="helpbutton()">Need Help? Click Here.</button>
+            <div class="cards-container" id="cardr1">
+              <div class="card" id="windcard">
+                <div class="cardtitle" id="windtitle">Wind</div>
+                <div class="value" style="margin-top: 50px;" id="windvalue">0 mph</div>
+                <div class="valuet" style="margin-top: 30px;" id="windgust">Gusts to 0 mph</div>
+                <div class="valuet" style="margin-top: 10px;" id="windmetric">0 km/h</div>
+                <div class="valuet" style="margin-top: 25px; display: block;" id="feelslike"></div>
+              </div>
+              <div class="card" id="uvcard">
+                <div class="cardtitle" id="uvtitle">UV Index</div>
+                <div class="value" id="uvvalue">0</div>
+                <div class="value" style="margin-top: -2px;font-size: small;" id="uvvaluedesc"></div>
+              </div>
+              <div class="card" id="humiditycard">
+                <div class="cardtitle" id="humtitle">Humidity</div>
+                <div class="value" id="humvalue">100%</div>
+              </div>
+            </div>
+            <div class="cards-container" id="cardr2">
+              <div class="card">
+                <div class="cardtitle" id="pressuretitle">Pressure</div>
+                <div class="value" id="pressurevalue">0 inHg</div>
+              </div>
+              <div class="card" id="dewcard">
+                <div class="cardtitle" id="dewtitle">Dew Point</div>
+                <div class="value" id="dewvalue">0°F</div>
+              </div>
+              <div class="card" id="viscard">
+                <div class="cardtitle" id="visibilitytitle">Visibility</div>
+                <div class="valuevis" style="margin-bottom: 50px;" id="visibilityvalue">10 mi</div>
+                <div class="valuet" id="visibilitytext">Clear Skies</div>
+              </div>
+            </div>
+            <div class="cards-container" id="cardr3">
+              <div class="card" id="raincard">
+                <div class="cardtitle" id="rainrtitle">Rain Rate</div>
+                <div class="value" id="rainrvalue">0 in./hr</div>
+              </div>
+              <div class="card" id="snowcard">
+                <div class="cardtitle" id="snowdtitle">Snow Depth</div>
+                <div class="value" id="snowdepthvalue">0 in</div>
+              </div>
+              <div class="card" id="radicard">
+                <div class="cardtitle" id="solartitle">Solar Radiation</div>
+                <div class="value" id="solarvalue">0 watts/m²</div>
+              </div>
+            </div>
+        </div>
+        <div id="alerts" class="alerts">No Alerts, Enjoy your day :)</div>
+        <div class="radarcontainer" id="radarimage">
+          <h1 style="position: absolute; margin-top: 78px; margin-left: 550px;">Radar Unavailable</h1>
+        </div>
+        <div class="daycontainer">
+          <div class="daycard">
+            <!-- Day 1 -->
+            <div class="daycardname" id="dayname0">Day 1</div>
+            <div class="weathericon" id="wxicon0">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather0">Sunny</div>
+            <div class="daycardtemp" id="temp0day">32</div>
+            <div class="daycardlow" id="templow0day">32</div>
+            <div class="cloudcover" id="cloudcover0">0% Cloud Cover</div>
+          </div>
+          <!-- Day 2 -->
+          <div class="daycard">
+            <div class="daycardname" id="dayname1">Day 2</div>
+            <div class="weathericon" id="wxicon1">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather1">Sunny</div>
+            <div class="daycardtemp" id="temp1day">32</div>
+            <div class="daycardlow" id="templow1day">32</div>
+            <div class="cloudcover" id="cloudcover1">0% Cloud Cover</div>
+          </div>
+          <!-- Day 3 -->
+          <div class="daycard">
+            <div class="daycardname" id="dayname2">Day 3</div>
+            <div class="weathericon" id="wxicon2">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather2">Sunny</div>
+            <div class="daycardtemp" id="temp2day">32</div>
+            <div class="daycardlow" id="templow2day">32</div>
+            <div class="cloudcover" id="cloudcover2">0% Cloud Cover</div>
+          </div>
+          <!-- Day 4 -->
+          <div class="daycard">
+            <div class="daycardname" id="dayname3">Day 4</div>
+            <div class="weathericon" id="wxicon3">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather3">Sunny</div>
+            <div class="daycardtemp" id="temp3day">32</div>
+            <div class="daycardlow" id="templow3day">32</div>
+            <div class="cloudcover" id="cloudcover3">0% Cloud Cover</div>
+          </div>
+          <!-- Day 5 -->
+          <div class="daycard">
+            <div class="daycardname" id="dayname4">Day 5</div>
+            <div class="weathericon" id="wxicon4">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather4">Sunny</div>
+            <div class="daycardtemp" id="temp4day">32</div>
+            <div class="daycardlow" id="templow4day">32</div>
+            <div class="cloudcover" id="cloudcover4">0% Cloud Cover</div>
+          </div>
+          <div class="daycard">
+            <!-- Day 5 -->
+            <div class="daycardname" id="dayname5">Day 6</div>
+            <div class="weathericon" id="wxicon5">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather5">Sunny</div>
+            <div class="daycardtemp" id="temp5day">32</div>
+            <div class="daycardlow" id="templow5day">32</div>
+            <div class="cloudcover" id="cloudcover5">0% Cloud Cover</div>
+          </div>
+          <!-- Day 6 -->
+          <div class="daycard">
+            <div class="daycardname" id="dayname6">Day 7</div>
+            <div class="weathericon" id="wxicon6">
+              <img src="sunny.png" alt="weather icon">
+            </div>
+            <div class="weathername" id="weather6">Sunny</div>
+            <div class="daycardtemp" id="temp6day">32</div>
+            <div class="daycardlow" id="templow6day">32</div>
+            <div class="cloudcover" id="cloudcover6">0% Cloud Cover</div>
+          </div>
+        </div>
+        <div class="detailedinformationcontainer">
+          <div class="informationintro" id="infointro0">Detailed Information for Today/Tonight:</div>
+          <div class="deatiledinformation-today" id="temptoday">High Temperature: 32°F (0°C)</div>
+          <div class="deatiledinformation-mintoday" id="tempmintoday">Low Temperature: 32°F (0°C)</div>
+          <div class="deatiledinformation-detailed" id="fullforecast0">It will be Sunny Today (or Tonight) with a High
+            of 32 and a Low of 32.</div>
+          <div class="informationintro" id="infointro1">Detailed Information for Day 2:</div>
+          <div class="deatiledinformation-today" id="temptoday1">High Temperature: 32°F (0°C)</div>
+          <div class="deatiledinformation-mintoday" id="tempmintoday1">Low Temperature: 32°F (0°C)</div>
+          <div class="deatiledinformation-detailed" id="fullforecast1">It will be Sunny Today (or Tonight) with a High
+            of 32 and a Low of 32.</div>
+          <div class="informationintro" id="infointro2">Detailed Information for Day 3:</div>
+          <div class="deatiledinformation-today" id="temptoday2">High Temperature: 32°F (0°C)</div>
+          <div class="deatiledinformation-mintoday" id="tempmintoday2">Low Temperature: 32°F (0°C)</div>
+          <div class="deatiledinformation-detailed" id="fullforecast2">It will be Sunny Today (or Tonight) with a High
+            of 32 and a Low of 32.</div>
+        </div>
+        <p class="note">Made by Jesse Hasty, Weather Data from <a href="https://www.xweather.com/docs"
+            style="color: blue"> Aeris Weather/Vaisala Xweather</a></p>
+        <div style="display: none;" id="alertaudio">
+        </div>
+      </div>  
+      <div class="bottomnavbar" id="bottombar">
+        <button onclick="lightningredirect()" class="lightningbutton" id="lightningbutton">Closest Lightning Strike</button>
+        <button class="linkbutton" onclick="extendedforecast()" style="margin-left: 250px;">Full Forecast</button>
+        <button onclick="spcoutlook()" id="spcbutton" class="linkbutton"
+          style="margin-left: 220px; width: 110px;">Convective   Outlook (USA Only)</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+<!-- dates.js -->
+<script>
+  getDate()
+  async function getDate() {
+    const d = new Date();
+    var hour = d.getHours();
+    var minute = d.getMinutes();
+    var day = d.getDate();
+    var month = d.getMonth() + 1;
+    var dayofweek = d.getDay();
+    var year = d.getFullYear()
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    weekdays_es = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
+
+    var newmonth = months[d.getDate()];
+    var currentweekday = weekdays[d.getDay()];
+    var currentweekdayes = weekdays_es[dayofweek];
+
+
+    var day1 = weekdays[d.getDay()];
+    var day2 = weekdays[d.getDay() + 1];
+    var day3 = weekdays[d.getDay() + 2];
+    var day4 = weekdays[d.getDay() + 3];
+    var day5 = weekdays[d.getDay() + 4];
+    var day6 = weekdays[d.getDay() + 5];
+    var day7 = weekdays[d.getDay() + 6];
+
+    var day1es = weekdays_es[d.getDay()];
+    var day2es = weekdays_es[d.getDay() + 1];
+    var daythres = weekdays_es[d.getDay() + 1 + 1]
+    var day4es = weekdays_es[d.getDay() + 3];
+    var day5es = weekdays_es[d.getDay() + 4];
+    var day6es = weekdays_es[d.getDay() + 5];
+    var day7es = weekdays_es[d.getDay() + 6];
+    console.log(day1es)
+
+    if (minute < 10) {
+      var minute = `0${minute}`;
+    }
+    document.getElementById('time').innerHTML = `${month}/${day}/${year} ${hour}:${minute}`;
+    // Day Names
+    document.getElementById('dayname0').innerHTML = `${day1}`;
+    document.getElementById('dayname1').innerHTML = `${day2}`;
+    document.getElementById('dayname2').innerHTML = `${day3}`;
+    document.getElementById('dayname3').innerHTML = `${day4}`;
+    document.getElementById('dayname4').innerHTML = `${day5}`;
+    document.getElementById('dayname5').innerHTML = `${day6}`;
+    document.getElementById('dayname6').innerHTML = `${day7}`;
+    // Forecast Intros
+    document.getElementById('infointro0').innerHTML = `Forecast for ${day1}`;
+    document.getElementById('infointro1').innerHTML = `Forecast for ${day2}`;
+    document.getElementById("infointro2").innerHTML = `Forecast for ${day3}`;
+
+    if (window.location.hash === "#es") {
+      document.getElementById("infointro0").innerHTML = `Pronóstico para ${day1es}`
+      document.getElementById("infointro1").innerHTML = `Pronóstico para ${day2es}`
+      document.getElementById("infointro2").innerText = `Pronóstico para ${daythres}`
+    }
+
+
+  }
+  getDate();
+  async function ChangeWidth() {
+    var dimension = screen.width
+  }
+  ChangeWidth()
+  setInterval(getDate, 5000)
+</script>
+<script>
+  $(function () {
+    $(document).keyup(function (e) {
+      const key = e.keyCode
+      if (key === 13) {
+        const searchForm = document.getElementById('searchInput');
+        window.location = `./index.html?city=${searchInput.value}`
+
+
+      }
+    })
+  })
+</script>
+<script>
+  function helpbutton() {
+    window.location = `./help.html?city=${city}`
+  }
+</script>
+<script>
+  function browserlocation() {
+    const browserLocationButton = document.getElementById("browserlocation");
+    browserLocationButton.disabled = true;
+    browserLocationButton.textContent = "Getting Location...";
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        window.location = `./index.html?city=${latitude},${longitude}`;
+      }, function(error) {
+        console.error("Error getting browser location:", error);
+        alert("Could not get your location. Please use the search bar.");
+        browserLocationButton.disabled = false;
+        browserLocationButton.textContent = "Use My Browser Location";
+      });
+    }
+  }
+  if (!new URLSearchParams(window.location.search).has('city')) {
+    browserlocation();
+  }
+</script>
+<script>
+  function darkmode() {
+    const toggleButton = document.getElementById("togglecircle");
+    toggleButton.addEventListener("click", function () {
+      const isDarkMode = this.classList.toggle('on');
+      const cards = document.querySelectorAll('.card');
+
+      if (isDarkMode) {
+        this.textContent = "ON";
+        this.style.animation = "darkmodetransition 0.5s forwards";
+        this.style.marginLeft = "67px";
+        cards.forEach(card => {
+          card.style.backgroundColor = 'black';
+          card.style.color = 'white';
+        });
+      } else {
+        this.textContent = "OFF";
+        this.style.animation = "";
+        this.style.marginLeft = "5px";
+        cards.forEach(card => {
+          card.style.backgroundColor = 'white';
+          card.style.color = 'black';
+        });
+      }
+    });
+  }
+  darkmode()
+</script>
+<script>
+  function lang() {
+    const lang = {
+      // Current Conditions
+      "currentconditions": {
+        "Sunny": "Soleada",
+        "Cloudy": "Nublada",
+        "Partly Cloudy": "Parcialmente nublado",
+        "Mostly Cloudy": "Mayormente nublado",
+        "Mostly Sunny": "Mayormente soleado",
+        "Rain Showers": "Duchas de lluvia",
+        "Thunderstorms": "Tormentas eléctricas",
+        "Heavy Thunderstorms": "Tormentas eléctricas pesadas",
+        "Heavy Rain": "Lluvia Pesada",
+
+      },
+      // Forecast Phrases 
+      "forecastphrases": {
+        "Cloud Cover": "Cobertura de nubes",
+        "No Rainfall Accumulation Expected.": "No se espera acumulación de lluvia.",
+        "The Max UV will be": "La máxima ultravioleta será",
+        "Clear Skies": "Cielos Despejados",
+        "Light Haze, Patchy Clouds": "Neblina Ligera, Nubes Irregulares",
+        "Haze": "Bruma",
+        "Thin Fog": "Niebla Fina",
+        "Light Fog": "Niebla Ligera",
+        "Moderate Fog": "Niebla Moderada",
+        "Thick Fog": "Espesa Niebla",
+        "Extremely Dense Fog": "Niebla Densa Extrema",
+      },
+      // UV Values
+      "uvphrases": {
+        "Very Low": "Muy baja",
+        "Low": "Baja",
+        "Medium": "Medio",
+        "High": "Alto",
+        "Very High": "Muy alto",
+        "Extreme": "Extrema",
+        "UV Index Unavaliable": "Índice UV no disponible",
+        "Put on Sunscreen when outdoors.": "Póngase protector solar cuando esté al aire libre."
+      },
+      "extraphrases": {
+        "Warm,": "Cálida,",
+        "Hot,": "Caliente,",
+        "Very Hot,": "Muy caliente,",
+        "with a Heat Wave!": "con una ola de calor!",
+        "Chilly,": "Fría,",
+        "Cold,": "Frío,",
+        "Very Cold": "Muy frío,",
+        "Bitterly Cold": "Amargamente frío,",
+        "Extreme Cold": "Extremadamente frio,",
+        "With an Arctic Blast,": "Con una explosión ártica,"
+      },
+      "titles": {
+        "Weather for": "El tiempo en",
+        "Real-Time Updates": "Actualizaciones en-tiempo real",
+        "Use My Browser Location": "Usar la ubicación de mi navegador",
+        "Wind": "Viento",
+        "Humidity": "Humedad",
+        "UVIndex": "Índice UV",
+        "Pressure": "Presión barométrica",
+        "Snow Depth": "Profundidad de la nieve",
+        "Solar Radiation": "Radiación solar",
+        "Visibility": "Visibilidad",
+        "Gusts to": "Ráfagas de hasta",
+        "Rain Rate": "Tasa de lluvia",
+        "No Alerts, Enjoy your day :)": "Sin alertas, disfruta tu día",
+      },
+      "units": {
+        /* Miles */ "mi": "millas",
+        "N": "N",
+        "NNE": "NNE",
+        "NE": "NE",
+        "E": "E",
+        "ESE": "ESE",
+        "SE": "SE",
+        "S": "S",
+        "SSW": "SSO",
+        "SW": "SO",
+        "W": "O",
+        "WNW": "ONO",
+        "NW": "NO",
+      },
+      "alerts": {
+        "Tornado Warning": "Tornado Advertencia",
+        "Severe Thunderstorm Warning": "Severa Tormenta Advertencia",
+        "Tornado Watch": "Alerta de Tornado",
+        "Severe Thunderstorm Watch": "Alerta de Tormenta Severa",
+        "Flood Warning": "Inundación Advertencia",
+        "Flash Flood Warning": "Inundación Repentina Advertencia",
+        "Flash Flood Watch": "Alerta Inundación Repentina",
+        "Rip Current Statement": "Declaración actual de Rip",
+        "ALERT:": "ALERTA:"
+      }
+    }
+    if (window.location.hash) {
+      if (window.location.hash === "#es") {
+
+        document.getElementById("windtitle").innerHTML = `${lang.titles.Wind}`
+        document.getElementById("uvtitle").innerHTML = `${lang.titles.UVIndex}`
+        document.getElementById("humtitle").innerHTML = `${lang.titles.Humidity}`
+
+
+      }
+    }
+  }
+  lang()
+</script>
+<script>
+  var cities = [
+    "New York, NY",
+    "Washington, DC",
+    "Crystal City, VA",
+    "Paris, FR",
+    "Miami, FL",
+    "Moscow, RU",
+    "Pensacola, FL",
+    "Sydney, AU",
+    "Mobile, AL",
+    "Hattiesburg, MS",
+    "Jacksonville, FL",
+    "Savannah, GA",
+    "Columbus, GA",
+    "Oxford, MS",
+    "Las Vegas, NV",
+    "Boston, MA",
+    "Portland, OR",
+    "Oklahoma City, OK",
+    "Everglades City, FL",
+    "Navarre, FL",
+    "Seattle, WA",
+    "Tampa, FL",
+    "Sarasota, FL",
+    "Dayton, OH",
+    "El Reno, OK",
+    "Bismarck, ND",
+    "Lansing, MI",
+    "Reno, NV",
+    "Ely, NV",
+    "Topeka, KS",
+    "Kansas City, KS",
+    "Columbia, MO",
+    "Liberty, MO",
+    "Thomson, GA",
+    "Baltimore, MD",
+    "Bangor, ME",
+    "Buffalo, NY",
+    "Harrisburg, PA",
+    "Dover, DE",
+    "Salisbury, MD",
+    "Norfolk, VA",
+    "Raleigh, NC",
+    "Asheville, NC",
+    "Paducah, KY",
+    "Louisville, KY",
+    "Jackson, MS",
+    "Lincoln, NE",
+    "Omaha, NE",
+    "Des Moines, IA",
+    "Rolling Fork, MS",
+    "Smithville, MS",
+    "Clarksville, TN",
+    "Springfield, TN",
+    "Springfield, MO",
+    "Biloxi, MS",
+    "Tyler, TX",
+    "El Paso, TX",
+    "Roswell, NM",
+    "Albuquerque, NM",
+    "Mammoth Lakes, CA",
+    "Fresno, CA",
+    "Manila, Philippines",
+    "Tokyo, Japan",
+    "Ord, NE",
+    "Zanesville, OH",
+    "Pittsburgh, PA",
+    "Fort Wayne, IN",
+    "State College, PA",
+    "Clarksburg, WV",
+    "Charleston, WV",
+    "Parkersburg, IA",
+    "Cedar Rapids, IA",
+    "Duluth, MN",
+    "Beckley, WV",
+    "Rapid City, SD",
+    "Pentagon City, VA",
+    "Ashburn, VA",
+    "Washington Monument, DC",
+    "9/11 Memorial, NY",
+    "Islip, NY",
+    "Shanksville, PA",
+    "Honolulu, HI",
+    "Hilo, HI",
+    "Bowling Green, KY",
+    "Knoxville, TN",
+    "Beale AFB, CA",
+    "San Francisco, CA",
+    "Carson City, NV",
+    "Redding, CA",
+    "San Jose, CA",
+    "TWC Headquarters, GA",
+    "Augusta, GA",
+    "Beaufort, SC",
+    "Orangeburg, SC",
+    "Coulmbia, SC",
+    "Tuscaloosa, AL",
+    "Hackleburg, AL",
+    "Tupelo, MS",
+    "Concord, NH",
+    "Portland, ME",
+    "Salt Lake City, UT",
+    "Denver, CO",
+    "Valentine, NE",
+    "Beckley, WV",
+    "Rochester, NY",
+    "Yonkers, NY",
+    "Syracuse NY",
+    "New Rochelle, NY",
+    "Mount Vernon, NY",
+    "Schenectady, NY",
+    "Utica, NY",
+    "White Plains, NY",
+    "Hempstead, NY",
+    "Troy, NY",
+    "Niagara Falls, NY",
+    "Binghamton, NY",
+    "Freeport, NY",
+    "Valley Stream, NY",
+    "Los Angeles, CA",
+    "San Diego, CA",
+    "San Jose, CA",
+    "Sacramento, CA",
+    "Long Beach, CA",
+    "Oakland, CA",
+    "Bakersfield, CA",
+    "Anaheim, CA",
+    "Santa Ana, CA",
+    "Riverside, CA",
+    "Stockton, CA",
+    "Chula Vista, CA",
+    "Irvine, CA",
+    "Fremont, CA",
+    "San Bernardino, CA",
+    "Modesto, CA",
+    "Fontana, CA",
+    "Oxnard, CA",
+    "Moreno Valley, CA",
+    "Huntington Beach, CA",
+    "Glendale, CA",
+    "Santa Clarita, CA",
+    "Garden Grove, CA",
+    "Oceanside, CA",
+    "Rancho Cucamonga, CA",
+    "Santa Rosa, CA",
+    "Ontario, CA",
+    "Lancaster, CA",
+    "Elk Grove, CA",
+    "Corona, CA",
+    "Palmdale, CA",
+    "Salinas, CA",
+    "Pomona, CA",
+    "Hayward, CA",
+    "Escondido, CA",
+    "Torrance, CA",
+    "Sunnyvale, CA",
+    "Orange, CA",
+    "Fullerton, CA",
+    "Pasadena, CA",
+    "Thousand Oaks, CA",
+    "Visalia, CA",
+    "Simi Valley, CA",
+    "Concord, CA",
+    "Roseville, CA",
+    "Victorville, CA",
+    "Santa Clara, CA",
+    "Vallejo, CA",
+    "Berkeley, CA",
+    "El Monte, CA",
+    "Downey, CA",
+    "Costa Mesa, CA",
+    "Inglewood, CA",
+    "Carlsbad, CA",
+    "San Buenaventura, CA",
+    "Fairfield, CA",
+    "West Covina, CA",
+    "Murrieta, CA",
+    "Richmond, CA",
+    "Norwalk, CA",
+    "Antioch, CA",
+    "Temecula, CA",
+    "Burbank, CA",
+    "Daly City, CA",
+    "Rialto, CA",
+    "Santa Maria, CA",
+    "El Cajon, CA",
+    "San Mateo, CA",
+    "Clovis, CA",
+    "Compton, CA",
+    "Jurupa Valley, CA",
+    "Vista, CA",
+    "South Gate, CA",
+    "Mission Viejo, CA",
+    "Vacaville, CA",
+    "Carson, CA",
+    "Hesperia, CA",
+    "Santa Monica, CA",
+    "Westminster, CA",
+    "Redding, CA",
+    "Santa Barbara, CA",
+    "Chico, CA",
+    "Newport Beach, CA",
+    "San Leandro, CA",
+    "San Marcos, CA",
+    "Whittier, CA",
+    "Hawthorne, CA",
+    "Citrus Heights, CA",
+    "Tracy, CA",
+    "Alhambra, CA",
+    "Livermore, CA",
+    "Buena Park, CA",
+    "Menifee, CA",
+    "Hemet, CA",
+    "Lakewood, CA",
+    "Merced, CA",
+    "Chino, CA",
+    "Indio, CA",
+    "Redwood City, CA",
+    "Lake Forest, CA",
+    "Napa, CA",
+    "Tustin, CA",
+    "Bellflower, CA",
+    "Mountain View, CA",
+    "Chino Hills, CA",
+    "Baldwin Park, CA",
+    "Alameda, CA",
+    "Upland, CA",
+    "San Ramon, CA",
+    "Folsom, CA",
+    "Pleasanton, CA",
+    "Union City, CA",
+    "Perris, CA",
+    "Manteca, CA",
+    "Lynwood, CA",
+    "Apple Valley, CA",
+    "Redlands, CA",
+    "Turlock, CA",
+    "Milpitas, CA",
+    "Redondo Beach, CA",
+    "Rancho Cordova, CA",
+    "Yorba Linda, CA",
+    "Palo Alto, CA",
+    "Davis, CA",
+    "Camarillo, CA",
+    "Walnut Creek, CA",
+    "Pittsburg, CA",
+    "South San Francisco, CA",
+    "Yuba City, CA",
+    "San Clemente, CA",
+    "Laguna Niguel, CA",
+    "Pico Rivera, CA",
+    "Montebello, CA",
+    "Lodi, CA",
+    "Madera, CA",
+    "Santa Cruz, CA",
+    "La Habra, CA",
+    "Encinitas, CA",
+    "Monterey Park, CA",
+    "Tulare, CA",
+    "Cupertino, CA",
+    "Gardena, CA",
+    "National City, CA",
+    "Rocklin, CA",
+    "Petaluma, CA",
+    "Huntington Park, CA",
+    "San Rafael, CA",
+    "La Mesa, CA",
+    "Arcadia, CA",
+    "Fountain Valley, CA",
+    "Diamond Bar, CA",
+    "Woodland, CA",
+    "Santee, CA",
+    "Lake Elsinore, CA",
+    "Porterville, CA",
+    "Paramount, CA",
+    "Eastvale, CA",
+    "Rosemead, CA",
+    "Hanford, CA",
+    "Highland, CA",
+    "Brentwood, CA",
+    "Novato, CA",
+    "Colton, CA",
+    "Cathedral City, CA",
+    "Delano, CA",
+    "Yucaipa, CA",
+    "Watsonville, CA",
+    "Placentia, CA",
+    "Glendora, CA",
+    "Gilroy, CA",
+    "Palm Desert, CA",
+    "Cerritos, CA",
+    "West Sacramento, CA",
+    "Aliso Viejo, CA",
+    "Poway, CA",
+    "La Mirada, CA",
+    "Rancho Santa Margarita, CA",
+    "Cypress, CA",
+    "Dublin, CA",
+    "Covina, CA",
+    "Azusa, CA",
+    "Palm Springs, CA",
+    "San Luis Obispo, CA",
+    "Ceres, CA",
+    "San Jacinto, CA",
+    "Lincoln, CA",
+    "Newark, CA",
+    "Lompoc, CA",
+    "El Centro, CA",
+    "Danville, CA",
+    "Bell Gardens, CA",
+    "Coachella, CA",
+    "Rancho Palos Verdes, CA",
+    "San Bruno, CA",
+    "Rohnert Park, CA",
+    "Brea, CA",
+    "La Puente, CA",
+    "Campbell, CA",
+    "San Gabriel, CA",
+    "Beaumont, CA",
+    "Morgan Hill, CA",
+    "Culver City, CA",
+    "Calexico, CA",
+    "Stanton, CA",
+    "La Quinta, CA",
+    "Pacifica, CA",
+    "Montclair, CA",
+    "Oakley, CA",
+    "Monrovia, CA",
+    "Los Banos, CA",
+    "Martinez, CA",
+    "Key West, FL",
+    "Melbourne, FL",
+    "Tybee Island, GA",
+    "Hilton Head Island, SC",
+    "Kitty Hawk, NC",
+    "Kill Devil Hills, NC",
+    "Beaufort, SC",
+    "Charleston, SC",
+    "Orangeburg, SC",
+    "Harrisburg, PA",
+    "Huntington, WV",
+    "Charlottesville, VA",
+    "Xenia, OH",
+    "Davenport, IA",
+    "Yakima, WA",
+    "Lincoln City, OR",
+    "Nampa, ID",
+    "Buffalo, WY",
+    "Cody, WY",
+    "Spearfish, SD",
+    "Aberdeen, SD",
+    "Dickinson, ND",
+    "Wisconsin Dells, WI",
+    "St. Cloud, MN",
+    "Westhope, ND",
+    "Waco, TX",
+    "San Angelo, TX",
+    "Sweetwater, TX",
+    "Pecos, TX",
+    "Saragosa, TX",
+    "Pyote, TX",
+    "Carlsbrad, NM",
+    "Fort Stockton, TX",
+    "Garden City, TX",
+    "Brady, TX",
+    "Junction, TX",
+    "Mason, TX",
+    "Austin, TX",
+    "Round Rock, TX",
+    "Sidell, LA",
+    "College Station, TX",
+    "Katy, TX",
+    "Sugar Land, TX",
+    "Gavleston, TX",
+    "Lukfin, TX",
+    "Port Arthur, TX",
+    "Jasper, TX",
+    "Kirbyville, TX",
+    "Nashville, TN",
+    "Hendersonville, TN",
+    "Henderson, TX",
+    "Elk City, OK",
+    "Perryton, TX",
+    "Scott City, KS",
+    "Scottsville, TX",
+    "Naperville, IL",
+    "Elgin, IL",
+    "Colorado Springs, CO",
+    "Hattiesburg, MS",
+    "Mary Esther, FL",
+    "Wright, FL",
+    "Mrytle Grove, FL",
+    "Seminole, AL",
+    "Bellview, FL",
+    "Houlton, ME",
+    "Grand Isle, ME",
+    "College Park, MD",
+    "College Park, GA",
+    "Evans, GA",
+    "Johnson City, TN",
+    "Pigeon Forge, TN",
+    "Boone, NC",
+    "San Juan, PR",
+    "Ponce, PR",
+    "Oakland Park, FL",
+    "Miles City, FL",
+    "Naples, FL",
+    "Kennedy Space Center, FL",
+    "Walt Disney World Resort, FL",
+    "Yosemite National Park, CA",
+    "Lawrence, KS",
+    "St. Joseph, MO",
+  ];
+
+  for (var key in cities) {
+    var optionElement = document.createElement("option");
+    optionElement.value = cities[key];
+    document.getElementById("cities").appendChild(optionElement);
+  }
+  if (city === "9/11 Memorial, NY") {
+    window.location = './index.html?city=40.71158535262827,-74.01331599219237'
+    cityname.innerHTML = `9/11 Memorial`
+  } if (city === "TWC Headquarters, GA") {
+    window.location = './index.html?city=Cumberland, GA'
+  } if (city === "Kennedy Space Center, FL") {
+    window.location = './index.html?city=28.574338331629217,-80.65205856161684'
+  } if (city === "Walt Disney World Resort, FL") {
+    window.location = './index.html?city=28.371389580743266,-81.54953982355723'
+  } if (city === "Yosemite National Park, CA") {
+    window.location = './index.html?city=37.86694464157127,-119.53288655690181'
+  }
+</script>
